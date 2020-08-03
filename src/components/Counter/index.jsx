@@ -7,7 +7,6 @@ class Counter extends React.Component {
             count: 0,
             tempInput:input
         }
-
     }
     componentWillMount() {
         console.log("component will mount");
@@ -28,7 +27,7 @@ class Counter extends React.Component {
         
         if(this.state.tempInput != this.props.input()){
             this.setState(()=>{ 
-                return {count: 0}
+                return {count: 0,tempInput:this.props.input()}
             })
         }
 
