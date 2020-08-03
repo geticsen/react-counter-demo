@@ -1,5 +1,7 @@
 import React, { Component } from "react"
-class Counter extends React.Component {
+import PropTypes from 'prop-types'
+
+class Counter extends Component {
     constructor(props) {
         super(props);
         var input = this.props.input();
@@ -8,44 +10,29 @@ class Counter extends React.Component {
             tempInput:input
         }
     }
-    componentWillMount() {
-        console.log("component will mount");
-    }
-    componentWillUnmount() {
-        console.log("component will unmount");
-    }
-    componentWillUpdate() {
-        console.log("component will update");
-    }
-    componentDidMount() {
-        console.log("component did mount");
-    }
-    componentDidUpdate() {
-        console.log("component did update");
-    }
     componentWillReceiveProps() {
         
-        if(this.state.tempInput != this.props.input()){
+        if(this.state.tempInput !== this.props.input()){
             this.setState(()=>{ 
                 return {count: 0,tempInput:this.props.input()}
             })
         }
-
-        console.log("component will receive props counter js");
     }
     incrase = (preState) => {
-        this.setState((preState)=>{ 
-            return {count: preState.count + 1}
+        this.setState((preState) => {
+            return { count: preState.count + 1 }
         })
-        this.props.setTotal(1)
+        this.props.onIncrement()
+        this.props.handleState()
     }
     decrease = () => {
-        this.setState((preState)=>{ 
-            return {count: preState.count - 1}
+        this.setState((preState) => {
+            return { count: preState.count - 1 }
         })
-        this.props.setTotal(-1)
+        this.props.onDecrement()
+        this.props.handleState()
     }
-   
+
     render() {
         return (
             <div>
@@ -55,6 +42,11 @@ class Counter extends React.Component {
             </div>
         )
     }
+}
+//数据检查格式
+Counter.propTypes = {
+    onIncrement: PropTypes.func.isRequired,
+    onDecrement: PropTypes.func.isRequired
 }
 
 export default Counter

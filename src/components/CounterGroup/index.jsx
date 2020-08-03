@@ -1,32 +1,36 @@
 import React from "react"
 import Counter from "../Counter"
+import counter from '../../reducers'
+import { createStore } from 'redux'
+
+const store = createStore(counter)
+
 class CounterGroup extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             groupNum: 0,
-            total: 0
+            total:store.getState(),
         }
     }
     shouldComponentUpdate() {
         return true;
     }
-    getGroupNum = ()=>{
+    getGroupNum = () => {
         return this.state.groupNum;
     }
     onChange(e) {
         var num = e.target.value.length > 0 ? e.target.value : 0;
-
-        this.state.groupNum = parseInt(num);
+        store.dispatch({ type: 'CLEAR' })
         this.setState({
-            groupNum: this.state.groupNum,
-            total: 0
+            groupNum: parseInt(num),
+            total:store.getState()
         });
-       
+
     }
 
-    handleTotal = (value) => {
-        this.setState({ total: this.state.total + value })
+    handleState = () => {
+        this.setState({ total: store.getState()})
     }
     render() {
         return (
@@ -35,10 +39,16 @@ class CounterGroup extends React.Component {
                     onChange={this.onChange.bind(this)} />
                 <span>total:<span>{this.state.total}</span></span>
                 <div>
-                    {new Array(this.state.groupNum).fill(0).map((key, index) => <Counter key={index} setTotal={this.handleTotal} input={this.getGroupNum}/>)}
+                    {new Array(this.state.groupNum).fill(0).map((key, index) => <Counter key={index}
+                        onIncrement={() => store.dispatch({ type: 'INCREMENT' })}
+                        onDecrement={() => store.dispatch({ type: 'DECREMENT' })}
+                        handleState={this.handleState}
+                        input={this.getGroupNum} 
+                        />)}
                 </div>
             </div>
         );
     }
 }
+
 export default CounterGroup
