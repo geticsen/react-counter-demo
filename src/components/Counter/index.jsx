@@ -2,8 +2,10 @@ import React, { Component } from "react"
 class Counter extends React.Component {
     constructor(props) {
         super(props);
+        var input = this.props.input();
         this.state = {
-            count: 0
+            count: 0,
+            tempInput:input
         }
 
     }
@@ -23,17 +25,26 @@ class Counter extends React.Component {
         console.log("component did update");
     }
     componentWillReceiveProps() {
-        console.log("component will receive props");
+        
+        if(this.state.tempInput != this.props.input()){
+            this.setState(()=>{ 
+                return {count: 0}
+            })
+        }
+
+        console.log("component will receive props counter js");
     }
     incrase = (preState) => {
         this.setState((preState)=>{ 
             return {count: preState.count + 1}
         })
+        this.props.setTotal(1)
     }
     decrease = () => {
         this.setState((preState)=>{ 
             return {count: preState.count - 1}
         })
+        this.props.setTotal(-1)
     }
    
     render() {

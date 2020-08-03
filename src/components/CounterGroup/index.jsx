@@ -4,29 +4,38 @@ class CounterGroup extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            groupNum: 0
+            groupNum: 0,
+            total: 0
         }
     }
-    shouldComponentUpdate(){
+    shouldComponentUpdate() {
         return true;
     }
-    onChange(e){
-        var num = e.target.value.length>0?e.target.value:0;
-        this.state.groupNum = parseInt(num);
+    getGroupNum = ()=>{
+        return this.state.groupNum;
     }
-    getInput = ()=>{
+    onChange(e) {
+        var num = e.target.value.length > 0 ? e.target.value : 0;
+
+        this.state.groupNum = parseInt(num);
         this.setState({
-            groupNum:  this.state.groupNum 
+            groupNum: this.state.groupNum,
+            total: 0
         });
+       
+    }
+
+    handleTotal = (value) => {
+        this.setState({ total: this.state.total + value })
     }
     render() {
         return (
             <div>
                 <input placeholder="input a number"
-                    onChange={this.onChange.bind(this)}/>
-                <button onClick={this.getInput} >生成</button>
+                    onChange={this.onChange.bind(this)} />
+                <span>total:<span>{this.state.total}</span></span>
                 <div>
-                    {new Array(this.state.groupNum).fill(0).map((key, index) => <Counter key={index}/>)}
+                    {new Array(this.state.groupNum).fill(0).map((key, index) => <Counter key={index} setTotal={this.handleTotal} input={this.getGroupNum}/>)}
                 </div>
             </div>
         );
