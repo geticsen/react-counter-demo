@@ -1,20 +1,20 @@
 import React, { Component } from "react"
 import PropTypes from 'prop-types'
-
+import store from "../../store"
 class Counter extends Component {
     constructor(props) {
         super(props);
         var input = this.props.input();
         this.state = {
             count: 0,
-            tempInput:input
+            tempInput: input
         }
     }
     componentWillReceiveProps() {
-        
-        if(this.state.tempInput !== this.props.input()){
-            this.setState(()=>{ 
-                return {count: 0,tempInput:this.props.input()}
+
+        if (this.state.tempInput !== this.props.input()) {
+            this.setState(() => {
+                return { count: 0, tempInput: this.props.input() }
             })
         }
     }
@@ -22,15 +22,13 @@ class Counter extends Component {
         this.setState((preState) => {
             return { count: preState.count + 1 }
         })
-        this.props.onIncrement()
-        this.props.handleState()
+        store.dispatch({ type: 'INCREMENT' })
     }
     decrease = () => {
         this.setState((preState) => {
             return { count: preState.count - 1 }
         })
-        this.props.onDecrement()
-        this.props.handleState()
+        store.dispatch({ type: 'DECREMENT' })
     }
 
     render() {
