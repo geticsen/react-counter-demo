@@ -1,12 +1,15 @@
-export default (state = 0, action) => {
+var initValue = {
+   total:0
+}
+//不能直接修改sate返回，应该新建一个状态
+export default (state = initValue, action) => {
     switch (action.type) {
       case 'INCREMENT':
-        return state + 1
+        return {total:++state.total}
       case 'DECREMENT':
-        return state - 1
+        return {total:--state.total}
       case 'CLEAR':
-        state=0
-        return state
+        return {total:0}
       default:
         return state
     }

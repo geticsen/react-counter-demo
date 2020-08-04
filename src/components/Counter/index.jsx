@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import PropTypes from 'prop-types'
 import store from "../../store"
 class Counter extends Component {
     constructor(props) {
@@ -22,13 +21,16 @@ class Counter extends Component {
         this.setState((preState) => {
             return { count: preState.count + 1 }
         })
-        store.dispatch({ type: 'INCREMENT' })
+        //console.log(this.props)
+        this.props.increase()
+        console.log("counter " +store.getState().total)
     }
     decrease = () => {
         this.setState((preState) => {
             return { count: preState.count - 1 }
         })
-        store.dispatch({ type: 'DECREMENT' })
+        this.props.decrease()
+        console.log("counter " +store.getState().total)
     }
 
     render() {
@@ -41,10 +43,5 @@ class Counter extends Component {
         )
     }
 }
-// //数据检查格式
-// Counter.propTypes = {
-//     onIncrement: PropTypes.func.isRequired,
-//     onDecrement: PropTypes.func.isRequired
-// }
 
 export default Counter

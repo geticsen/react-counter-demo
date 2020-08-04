@@ -21,7 +21,7 @@ class CounterGroup extends React.Component {
         this.setState({
             groupNum: parseInt(num),
         });
-
+        console.log(this.props)
     }
 
     render() {
@@ -30,9 +30,11 @@ class CounterGroup extends React.Component {
             <div>
                 <input placeholder="input a number"
                     onChange={this.onChange.bind(this)} />
-                <span>total:<span>{store.getState()}</span></span>
+                <span>total:<span>{store.getState().total}</span></span>
                 <div>
                     {new Array(this.state.groupNum).fill(0).map((key, index) => <Counter key={index}
+                        increase={()=>{this.props.increase()}}
+                        decrease={()=>{this.props.decrease()}}
                         input={this.getGroupNum}
                     />)}
                 </div>
