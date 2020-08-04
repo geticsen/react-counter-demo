@@ -33,8 +33,6 @@ class CounterGroup extends React.Component {
                 <span>total:<span>{store.getState()}</span></span>
                 <div>
                     {new Array(this.state.groupNum).fill(0).map((key, index) => <Counter key={index}
-                        onIncrement={() => store.dispatch({ type: 'INCREMENT' })}
-                        onDecrement={() => store.dispatch({ type: 'DECREMENT' })}
                         input={this.getGroupNum}
                     />)}
                 </div>

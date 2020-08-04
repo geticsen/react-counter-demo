@@ -41,10 +41,10 @@ class Counter extends Component {
         )
     }
 }
-//数据检查格式
-Counter.propTypes = {
-    onIncrement: PropTypes.func.isRequired,
-    onDecrement: PropTypes.func.isRequired
-}
+// //数据检查格式
+// Counter.propTypes = {
+//     onIncrement: PropTypes.func.isRequired,
+//     onDecrement: PropTypes.func.isRequired
+// }
 
 export default Counter
