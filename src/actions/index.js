@@ -1,4 +1,5 @@
 
+
 export const increaseTotal = () => {
     return { type: "INCREMENT" }
 }

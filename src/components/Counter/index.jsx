@@ -23,14 +23,14 @@ class Counter extends Component {
         })
         //console.log(this.props)
         this.props.increase()
-        console.log("counter " +store.getState().total)
+        console.log("counter " + store.getState().total)
     }
     decrease = () => {
         this.setState((preState) => {
             return { count: preState.count - 1 }
         })
         this.props.decrease()
-        console.log("counter " +store.getState().total)
+        console.log("counter " + store.getState().total)
     }
 
     render() {
